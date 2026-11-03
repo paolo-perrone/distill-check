@@ -1,0 +1,7 @@
+[project]
+name = "distill-check"
+version = "0.2.0"
+description = "Name the slices of your logged model calls a distilled student can take over, and the ones it cannot."
+requires-python = ">=3.9"
+dependencies = []
+license = {text = "MIT"}

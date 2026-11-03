@@ -1,0 +1,19 @@
+name: test
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: The file the issue sells must pass its own checks
+        run: python3 distill_check.py --self-test
+      - name: And the unit tests, including the sample log's stated verdict
+        run: python3 -m unittest discover -s tests -v
+      - name: And the README's command must run on the shipped log
+        run: python3 distill_check.py fixtures/support_tickets.jsonl --slice product --student student --truth truth --prompted prompted
